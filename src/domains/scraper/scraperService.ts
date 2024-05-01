@@ -21,8 +21,6 @@ export class ScraperService {
     try {
       const repository = new ScraperRepository();
       await repository.saveData(data);
-
-      console.log('Data successfully saved to MongoDB.');
     } catch (error) {
       console.error('Error saving data to database:', error);
       throw new Error('Failed to save data to database');
