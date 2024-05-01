@@ -4,7 +4,9 @@ async function main() {
   const scraperService = new ScraperService();
   
   try {
-    await scraperService.scrapeAndSave(url);
+    const data = await scraperService.scrapeDataFromUrl(url);
+    
+    await scraperService.saveDataToDatabase(data);
   } catch (error) {
     console.error('Error in main:', error);
   }

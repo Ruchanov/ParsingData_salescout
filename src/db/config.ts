@@ -1,3 +1,4 @@
+// db/config.ts
 import { MongoClient, Db } from 'mongodb';
 
 let client: MongoClient | null = null;
@@ -20,13 +21,3 @@ export async function connectToMongoDB(): Promise<{ client: MongoClient, db: Db 
   return { client, db };
 }
 
-export async function saveDataToMongoDB(db: Db, data: any): Promise<void> {
-  try {
-    const collection = db.collection('savedData');
-    const result = await collection.insertOne(data);
-    console.log('Data inserted:', result.insertedId);
-  } catch (error) {
-    console.error('Error saving data to MongoDB:', error);
-    throw new Error('Failed to save data to MongoDB');
-  }
-}
