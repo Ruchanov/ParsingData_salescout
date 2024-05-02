@@ -22,6 +22,8 @@ bot.start(async(ctx: Context) => {
         username: username
     };
     UserService.saveUser(data)
+    ctx.reply('Привет! Я бот для поиска информации о машинах. Введите идентификатор машины, чтобы получить информацию о ней.');
+
 });
 
 bot.on('text',async (ctx: Context) => {
