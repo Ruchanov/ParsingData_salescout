@@ -61,7 +61,6 @@ const CarSchema = new Schema<ICar>(
     },
 )
 
-// UserSchema.index({ firstName: 1 })
 CarSchema.index({ id: 1 })
 
 export const CarModel = MongoDataBase.mainDataBaseConnection.model<ICar>(COLLECTION_NAME, CarSchema, COLLECTION_NAME)

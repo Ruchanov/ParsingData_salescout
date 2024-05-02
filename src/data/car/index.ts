@@ -1,4 +1,3 @@
-import { MongoDataBase } from '../../db';
 import { CarModel, ICar } from '../../db/car';
 import { Car } from '../../domains/scraper/scraper';
 
@@ -11,7 +10,6 @@ export class CarService {
                 return;
             }
 
-            // await MongoDataBase.initMainDataBaseConnection();
             const carDocument = new CarModel(data);
             const result = await carDocument.save();
             console.log('Data inserted:', result._id);
@@ -20,10 +18,17 @@ export class CarService {
             throw new Error('Failed to save data to MongoDB');
         }
     }
-
+    public static async getCar(id: string): Promise<Car | null> {
+      try {
+          const result = await CarModel.findOne({ id: id });
+          return result ? result.toObject() : null;
+      } catch (error) {
+          console.error('Error retrieving data from MongoDB:', error);
+          throw new Error('Failed to retrieve data from MongoDB');
+      }
+  }
     private static async isDataExists(id: number): Promise<boolean> {
         try {
-            // await MongoDataBase.initMainDataBaseConnection();
             const result = await CarModel.findOne({ id: id });
             return !!result;
         } catch (error) {

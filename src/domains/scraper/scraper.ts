@@ -1,5 +1,4 @@
 import cheerio from 'cheerio';
-import { ICar } from '../../db/car';
 export interface Car  {
   id: number;
   city: string;
