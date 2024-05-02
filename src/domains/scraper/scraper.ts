@@ -1,10 +1,19 @@
-// domains/scraper
 import cheerio from 'cheerio';
-import { ScraperData } from '../../db/models';
-
+import { ICar } from '../../db/car';
+export interface Car  {
+  id: number;
+  city: string;
+  drive: string;
+  mileage: number;
+  clearanceKZ: boolean;
+  body: string;
+  volume: number;
+  price: number;
+  name: string;
+}
 
 export class Scraper {
-  scrape(html: string, url: string): ScraperData {
+  scrape(html: string, url: string): Car {
     const $ = cheerio.load(html);
 
     const id = Number(url.split('/').pop());
@@ -16,7 +25,7 @@ export class Scraper {
     const volume = parseFloat($('dt:contains("Объем двигателя, л") + dd.value').text().trim());
     const price = parseFloat($('div.offer__price').text().trim().replace(/\D/g, ''));
     const name = $('span[itemprop="brand"]').text().trim();
-
-    return { id, city, drive, mileage, clearanceKZ, body, volume, price, name };
+    
+    return { id, city, drive, mileage, clearanceKZ, body, volume, price, name};
   }
 }
