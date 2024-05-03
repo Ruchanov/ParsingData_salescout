@@ -6,9 +6,12 @@ import { config } from './domains/config';
 import { CarService } from './data/car';
 import { stringifyCar } from './domains/message_format';
 import { main } from '.';
+import { proxyMiddleware } from './domains/proxy';
 
 MongoDataBase.initMainDataBaseConnection();
 const bot = new Telegraf(config.telegramApiToken);
+
+bot.use(proxyMiddleware)
 
 bot.start(async(ctx: Context) => {
     const chatId = ctx.chat?.id !== undefined ? ctx.chat.id.toString() : '';

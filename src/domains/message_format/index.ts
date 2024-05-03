@@ -3,7 +3,9 @@ import { Car } from '../../domains/scraper/scraper';
 export function stringifyCar(car: Car): string {
     const clearanceKZString = car.clearanceKZ ? 'Да' : 'Нет';
     const formattedPrice = car.price.toLocaleString('ru-RU') + ' тг';
-    const mileageString = car.mileage !== null ? `${car.mileage} км` : 'Не указан';
+    const mileageString = car.mileage !== null
+  ? car.mileage?.toLocaleString('ru-RU') + ' км'
+  : 'Не указан';
     return ` Детали машины:
 ID: ${car.id}
 Модель: ${car.name}
