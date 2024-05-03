@@ -6,12 +6,10 @@ import { config } from './domains/config';
 import { CarService } from './data/car';
 import { stringifyCar } from './domains/message_format';
 import { main } from '.';
-import { proxyMiddleware } from './domains/proxy';
 
 MongoDataBase.initMainDataBaseConnection();
 const bot = new Telegraf(config.telegramApiToken);
 
-bot.use(proxyMiddleware)
 
 bot.start(async(ctx: Context) => {
     const chatId = ctx.chat?.id !== undefined ? ctx.chat.id.toString() : '';
@@ -38,17 +36,29 @@ bot.on('text',async (ctx: Context) => {
             if(car){
                 ctx.reply(stringifyCar(car))
             }else{
+                // try {
+                //     await main(`https://kolesa.kz/a/show/${givenId}`);
+                //     const savedCar = await CarService.getCar(givenId);
+                //     if (savedCar) {
+                //         ctx.reply(stringifyCar(savedCar));
+                //     } else {
+                //         ctx.reply('Информация о машине не найдена.');
+                //     }
+                // } catch (error) {
+                //     console.error('Error in main:', error);
+                //     ctx.reply('Произошла ошибка при обработке запроса.');
+                // }
                 try {
                     await main(`https://kolesa.kz/a/show/${givenId}`);
                     const savedCar = await CarService.getCar(givenId);
                     if (savedCar) {
-                        ctx.reply(stringifyCar(savedCar));
+                        return ctx.reply(stringifyCar(savedCar)); // Добавляем return здесь
                     } else {
-                        ctx.reply('Информация о машине не найдена.');
+                        return ctx.reply('Информация о машине не найдена.'); // Добавляем return здесь
                     }
                 } catch (error) {
                     console.error('Error in main:', error);
-                    ctx.reply('Произошла ошибка при обработке запроса.');
+                    return ctx.reply('Произошла ошибка при обработке запроса.'); // Добавляем return здесь
                 }
             }
         } else {
