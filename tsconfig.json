@@ -14,7 +14,7 @@
       "strictFunctionTypes": true,
       "alwaysStrict": true,
       "resolveJsonModule": true,
-      "skipLibCheck": false
+      "skipLibCheck": true
   },
   "include": ["src/**/*", "__tests__/**/*"]
 }
