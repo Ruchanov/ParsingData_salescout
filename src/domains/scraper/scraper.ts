@@ -18,7 +18,10 @@ export class Scraper {
     const id = Number(url.split('/').pop());
     const city = $(' dt:contains("Город") + dd.value').text().trim();
     const drive = $('dt:contains("Привод") + dd.value').text().trim();
-    const mileage = parseFloat($('dt:contains("Пробег") + dd.value').text().trim()) || undefined;
+    const mileageString = $('dt:contains("Пробег") + dd.value').text().trim();
+    const mileage = mileageString
+      ? parseFloat(mileageString.replace(/\D/g, ''))
+      : undefined;
     const clearanceKZ = Boolean($(' dt:contains("Растаможен в Казахстане") + dd.value').text().trim().includes('Да'));
     const body = $(' dt:contains("Кузов") + dd.value').text().trim();
     const volume = parseFloat($('dt:contains("Объем двигателя, л") + dd.value').text().trim());
