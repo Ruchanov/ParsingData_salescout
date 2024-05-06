@@ -10,7 +10,6 @@ import { main } from '.';
 MongoDataBase.initMainDataBaseConnection();
 const bot = new Telegraf(config.telegramApiToken);
 
-
 bot.start(async(ctx: Context) => {
     const chatId = ctx.chat?.id !== undefined ? ctx.chat.id.toString() : '';
     const firstName = ctx.from?.first_name || '';
@@ -36,29 +35,17 @@ bot.on('text',async (ctx: Context) => {
             if(car){
                 ctx.reply(stringifyCar(car))
             }else{
-                // try {
-                //     await main(`https://kolesa.kz/a/show/${givenId}`);
-                //     const savedCar = await CarService.getCar(givenId);
-                //     if (savedCar) {
-                //         ctx.reply(stringifyCar(savedCar));
-                //     } else {
-                //         ctx.reply('Информация о машине не найдена.');
-                //     }
-                // } catch (error) {
-                //     console.error('Error in main:', error);
-                //     ctx.reply('Произошла ошибка при обработке запроса.');
-                // }
                 try {
                     await main(`https://kolesa.kz/a/show/${givenId}`);
                     const savedCar = await CarService.getCar(givenId);
                     if (savedCar) {
-                        return ctx.reply(stringifyCar(savedCar)); // Добавляем return здесь
+                        ctx.reply(stringifyCar(savedCar));
                     } else {
-                        return ctx.reply('Информация о машине не найдена.'); // Добавляем return здесь
+                        ctx.reply('Информация о машине не найдена.');
                     }
                 } catch (error) {
                     console.error('Error in main:', error);
-                    return ctx.reply('Произошла ошибка при обработке запроса.'); // Добавляем return здесь
+                    ctx.reply('Произошла ошибка при обработке запроса.');
                 }
             }
         } else {

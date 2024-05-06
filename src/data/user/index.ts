@@ -16,7 +16,6 @@ export class UserService {
 
             const carDocument = new UserModel(data);
             const result = await carDocument.save();
-            // console.log('Data inserted:', result._id);
         } catch (error) {
             console.error('Error saving data to MongoDB:', error);
             throw new Error('Failed to save data to MongoDB');
@@ -28,7 +27,6 @@ export class UserService {
             const result = await UserModel.findOne({ chatId: chatId });
             return !!result;
         } catch (error) {
-            // console.error('Error checking data existence in MongoDB:', error);
             throw new Error('Failed to check data existence in MongoDB');
         }
     }

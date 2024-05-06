@@ -13,52 +13,57 @@ export interface ICar extends Document {
   volume: number;
   price: number;
   name: string;
+  percentDifference: number;
 }
 
 const CarSchema = new Schema<ICar>(
-    {
-        id: {
-            type: Number,
-            required: true,
-            unique: true,
-        },
-        city: {
-            type: String,
-            default: '',
-        },
-        drive: {
-            type: String,
-            default: '',
-        },
-        mileage: {
-            type: Number,
-            default: null,
-        },
-        clearanceKZ: {
-          type: Boolean,
-          default: true,
-        },
-        body: {
-          type: String,
-          default: '',
-        },
-        volume: {
-          type: Number,
-          default: null,
-        },
-        price: {
-          type: Number,
-          default: null,
-        },
-        name: {
-          type: String,
-          default: '',
-        },
+  {
+    id: {
+      type: Number,
+      required: true,
+      unique: true,
     },
-    {
-        timestamps: true,
-        collection: COLLECTION_NAME,
+    city: {
+      type: String,
+      default: '',
     },
+    drive: {
+      type: String,
+      default: '',
+    },
+    mileage: {
+      type: Number,
+      default: null,
+    },
+    clearanceKZ: {
+      type: Boolean,
+      default: true,
+    },
+    body: {
+      type: String,
+      default: '',
+    },
+    volume: {
+      type: Number,
+      default: null,
+    },
+    price: {
+      type: Number,
+      default: null,
+    },
+    name: {
+      type: String,
+      default: '',
+    },
+    percentDifference: { 
+      type: Number,
+      default: null,
+    },
+  },
+  {
+    timestamps: true,
+    collection: COLLECTION_NAME,
+  },
 )
 
 CarSchema.index({ id: 1 })

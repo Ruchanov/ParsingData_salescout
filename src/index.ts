@@ -11,8 +11,8 @@ export async function main(url: string) {
     await CarService.saveCar(data);
   } catch (error) {
     console.error('Error in main:', error);
+    return null;
   }
 }
 
-// main('https://kolesa.kz/a/show/169644623');
 
